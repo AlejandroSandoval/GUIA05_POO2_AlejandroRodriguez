@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <head>
+        <title>Alumnos</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div>Formulario de alumno</div><br/>
+        <h:form id="FormAlum">
+            Nombre:<h:inputText id="nomb" value="#{alumnosBean.objeAlum.nombAlum}"></h:inputText><br/>
+            Apellido:<h:inputText id="apel" value="#{alumnosBean.objeAlum.apelAlum}"></h:inputText><br/>
+            Fecha Nac:<h:inputText id="fechNaci" value="#{alumnosBean.objeAlum.fechNaciAlum}">
+                <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+            </h:inputText><br/>
+            Email:<h:inputText id="email" value="#{alumnosBean.objeAlum.mailAlum}"></h:inputText><br/>
+            Telefono:<h:inputText id="tele" value="#{alumnosBean.objeAlum.teleAlum}"></h:inputText><br/>
+            Direccion:<h:inputText id="dire" value="#{alumnosBean.objeAlum.direAlum}"></h:inputText><br/>
+            Genero:<h:selectOneMenu id="gene" value="#{alumnosBean.objeAlum.geneAlum}">
+                <f:selectItem itemValue="M" itemLabel="Masculino"></f:selectItem>
+                <f:selectItem itemValue="F" itemLabel="Femenino"></f:selectItem>
+            </h:selectOneMenu><br/>
+            <h:commandButton id="btonGuar" actionListener="${alumnosBean.guar()}" value="Guardar"></h:commandButton>
+        </h:form>
+    </body>
+</html>
