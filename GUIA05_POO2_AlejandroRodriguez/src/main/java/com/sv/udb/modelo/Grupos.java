@@ -12,7 +12,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author aleso
+ * @author REGISTRO
  */
 @Entity
 @Table(name = "grupos", catalog = "parcial", schema = "")
@@ -77,14 +76,14 @@ public class Grupos implements Serializable {
     @Size(min = 1, max = 5)
     @Column(name = "hora_fina_grup")
     private String horaFinaGrup;
-    @JoinColumn(name = "codi_curs", referencedColumnName = "codi_curs")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Cursos codiCurs;
-    @JoinColumn(name = "codi_prof", referencedColumnName = "codi_prof")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Profesores codiProf;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codiGrup", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codiGrup")
     private List<GruposAlumnos> gruposAlumnosList;
+    @JoinColumn(name = "codi_prof", referencedColumnName = "codi_prof")
+    @ManyToOne(optional = false)
+    private Profesores codiProf;
+    @JoinColumn(name = "codi_curs", referencedColumnName = "codi_curs")
+    @ManyToOne(optional = false)
+    private Cursos codiCurs;
 
     public Grupos() {
     }
@@ -150,12 +149,13 @@ public class Grupos implements Serializable {
         this.horaFinaGrup = horaFinaGrup;
     }
 
-    public Cursos getCodiCurs() {
-        return codiCurs;
+    @XmlTransient
+    public List<GruposAlumnos> getGruposAlumnosList() {
+        return gruposAlumnosList;
     }
 
-    public void setCodiCurs(Cursos codiCurs) {
-        this.codiCurs = codiCurs;
+    public void setGruposAlumnosList(List<GruposAlumnos> gruposAlumnosList) {
+        this.gruposAlumnosList = gruposAlumnosList;
     }
 
     public Profesores getCodiProf() {
@@ -166,13 +166,12 @@ public class Grupos implements Serializable {
         this.codiProf = codiProf;
     }
 
-    @XmlTransient
-    public List<GruposAlumnos> getGruposAlumnosList() {
-        return gruposAlumnosList;
+    public Cursos getCodiCurs() {
+        return codiCurs;
     }
 
-    public void setGruposAlumnosList(List<GruposAlumnos> gruposAlumnosList) {
-        this.gruposAlumnosList = gruposAlumnosList;
+    public void setCodiCurs(Cursos codiCurs) {
+        this.codiCurs = codiCurs;
     }
 
     @Override

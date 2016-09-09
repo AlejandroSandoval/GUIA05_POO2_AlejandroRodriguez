@@ -9,7 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author aleso
+ * @author REGISTRO
  */
 @Entity
 @Table(name = "grupos_alumnos", catalog = "parcial", schema = "")
@@ -44,12 +43,12 @@ public class GruposAlumnos implements Serializable {
     @NotNull
     @Column(name = "esta_grup_alum")
     private Character estaGrupAlum;
-    @JoinColumn(name = "codi_alum", referencedColumnName = "codi_alum")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Alumnos codiAlum;
     @JoinColumn(name = "codi_grup", referencedColumnName = "codi_grup")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     private Grupos codiGrup;
+    @JoinColumn(name = "codi_alum", referencedColumnName = "codi_alum")
+    @ManyToOne(optional = false)
+    private Alumnos codiAlum;
 
     public GruposAlumnos() {
     }
@@ -79,20 +78,20 @@ public class GruposAlumnos implements Serializable {
         this.estaGrupAlum = estaGrupAlum;
     }
 
-    public Alumnos getCodiAlum() {
-        return codiAlum;
-    }
-
-    public void setCodiAlum(Alumnos codiAlum) {
-        this.codiAlum = codiAlum;
-    }
-
     public Grupos getCodiGrup() {
         return codiGrup;
     }
 
     public void setCodiGrup(Grupos codiGrup) {
         this.codiGrup = codiGrup;
+    }
+
+    public Alumnos getCodiAlum() {
+        return codiAlum;
+    }
+
+    public void setCodiAlum(Alumnos codiAlum) {
+        this.codiAlum = codiAlum;
     }
 
     @Override

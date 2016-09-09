@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author aleso
+ * @author REGISTRO
  */
 @Entity
 @Table(name = "profesores", catalog = "parcial", schema = "")
@@ -72,7 +71,7 @@ public class Profesores implements Serializable {
     @Size(min = 1, max = 200)
     @Column(name = "dire_pro")
     private String direPro;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codiProf", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codiProf")
     private List<Grupos> gruposList;
 
     public Profesores() {
