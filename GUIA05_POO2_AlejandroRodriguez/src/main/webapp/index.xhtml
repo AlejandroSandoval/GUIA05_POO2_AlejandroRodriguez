@@ -18,16 +18,22 @@ and open the template in the editor.
         <h:outputScript library="js" name="bootstrap.min.js"/>
         <h:outputScript library="js/LfIE9" name="jquery.min.js"/>
         <h:outputStylesheet library="css" name="font-awesome.min.css"/>
-        
+        <!--Plugins Alertas-->
         <h:outputStylesheet library="css" name="toastr.min.css"/>
         <h:outputScript library="js" name="toastr.min.js"/>
         <h:outputScript library="js/custom" name="mens.js"/>
+        <!--Plugins Tablas-->
+        <h:outputStylesheet library="css" name="bootstrap-table.css" />
+        <h:outputStylesheet library="css" name="custom/table.mini.css" />
+        <h:outputScript library="js" name="bootstrap-table.js" />
+        <h:outputScript library="js" name="bootstrap-table-es-AR.min.js" />
         <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
     </h:head>
     <h:body>
+        <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4 col-xs-4">
-                <div class="panel panel-default">
+            <div class="col-xs-12 col-sm-12 col-md-4">
+                <div class="panel panel-primary">
                     <div class="panel-heading">Formulario</div>
                     <div class="panel-body">
                         <h:form id="FormAlum">
@@ -66,21 +72,69 @@ and open the template in the editor.
                                 </h:selectOneMenu>
                             </div>
                             <div class="form-group">
-                                <h:commandLink id="btonGuar" class="btn btn-primary">
-                                    <p:ajax listener="#{alumnosBean.guar()}" process="@form" update="@form"></p:ajax>
-                                    <i class="fa fa-check"/> Guardar
-                                </h:commandLink>
+                                 <div style="display: inline-block">
+                                    <h:commandLink id="btonGuar" class="btn btn-primary">
+                                        <p:ajax listener="#{alumnosBean.guar()}" process="@form" update="@form :FormTabl:ContAlum"/>
+                                        <i class="fa fa-save"/> Guardar
+                                    </h:commandLink>
+                                </div>
+                                <div style="display: inline-block">
+                                    <h:commandLink id="btonModi" class="btn btn-success">
+                                        <p:ajax listener="#{alumnosBean.modi()}" process="@form" update="@form :FormTabl:ContAlum"/>
+                                        <i class="fa fa-pencil"/> Modificar
+                                    </h:commandLink>
+                                </div>
+                                <div style="display: inline-block">
+                                    <h:commandLink id="btonElim" class="btn btn-danger">
+                                        <p:ajax listener="#{alumnosBean.elim(alumnosBean.objeAlum.codiAlum)}" process="@form" update="@form :FormTabl:ContAlum"/>
+                                        <i class="fa fa-trash-o"/> Eliminar
+                                    </h:commandLink>
+                                </div>
                             </div>
                         </h:form>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 col-xs-8">
-                <div class="panel panel-default">
+            <div class="col-xs-12 col-sm-12 col-md-8">
+                <div class="panel panel-primary">
                     <div class="panel-heading">Tabla de Datos</div>
                     <div class="panel-body">
+                        <h:form id="FormTabl">
+                            <div class="table-responsive">
+                                <h:panelGroup id="ContAlum">
+                                     <h:dataTable var="fila" value="#{alumnosBean.alumList}" class="table table-responsive table-striped table-hover">
+                                    <h:column>
+                                        <f:facet name="header">Código</f:facet>
+                                        <h:outputText value="#{fila.codiAlum}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Nombre</f:facet>
+                                        <h:outputText value="#{fila.nombAlum}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Apellido</f:facet>
+                                        <h:outputText value="#{fila.apelAlum}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Correo electrónico</f:facet>
+                                        <h:outputText value="#{fila.mailAlum}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">Acción</f:facet>
+                                        <h:outputLink>
+                                            <h:commandLink id="btonModi" class="btn btn-default">
+                                                <p:ajax listener="#{alumnosBean.cons(fila.codiAlum)}" process="@form" update="@form :FormAlum"/>
+                                                <i class="fa fa-search"/> Consultar
+                                            </h:commandLink> 
+                                        </h:outputLink>
+                                    </h:column>
+                                </h:dataTable>
+                                </h:panelGroup>
+                            </div>
+                        </h:form>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </h:body>
